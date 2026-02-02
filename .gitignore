@@ -1,0 +1,17 @@
+# Excel files (keep Chinese.xlsx in repo as example, but ignore user uploads)
+*.xlsx
+!Chinese.xlsx
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Logs
+*.log
+npm-debug.log*

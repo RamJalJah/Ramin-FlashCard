@@ -1,0 +1,69 @@
+import csv
+
+# Flashcard data with proper pinyin tones
+flashcards = [
+    ("nǐ hǎo", "hello"),
+    ("xièxiè", "thank you"),
+    ("zàijiàn", "goodbye"),
+    ("duìbuqǐ", "sorry"),
+    ("qǐng", "please"),
+    ("shì", "yes"),
+    ("bú shì", "no"),
+    ("hǎo", "good"),
+    ("bù hǎo", "not good"),
+    ("wǒ", "I/me"),
+    ("nǐ", "you"),
+    ("tā", "he/she/it"),
+    ("wǒmen", "we/us"),
+    ("nǐmen", "you (plural)"),
+    ("tāmen", "they/them"),
+    ("shuǐ", "water"),
+    ("chá", "tea"),
+    ("fàn", "rice/meal"),
+    ("miànbāo", "bread"),
+    ("píngguǒ", "apple"),
+    ("júzi", "orange"),
+    ("yī", "one"),
+    ("èr", "two"),
+    ("sān", "three"),
+    ("sì", "four"),
+    ("wǔ", "five"),
+    ("liù", "six"),
+    ("qī", "seven"),
+    ("bā", "eight"),
+    ("jiǔ", "nine"),
+    ("shí", "ten"),
+    ("tiān", "day/sky"),
+    ("rén", "person"),
+    ("jiā", "home/family"),
+    ("xuéxiào", "school"),
+    ("lǎoshī", "teacher"),
+    ("xuésheng", "student"),
+    ("shū", "book"),
+    ("bǐ", "pen"),
+    ("zhuōzi", "table"),
+    ("yǐzi", "chair"),
+    ("mén", "door"),
+    ("chuāng", "window"),
+    ("chē", "car"),
+    ("fēijī", "airplane"),
+    ("huǒchē", "train"),
+    ("diànhuà", "telephone"),
+    ("diànnǎo", "computer"),
+    ("shǒujī", "cellphone"),
+    ("péngyou", "friend"),
+    ("àihào", "hobby"),
+    ("yīnyuè", "music"),
+    ("diànyǐng", "movie"),
+    ("yùndòng", "sports"),
+    ("zúqiú", "soccer/football"),
+]
+
+# Create CSV file
+with open('pinyin_words.csv', 'w', newline='', encoding='utf-8') as f:
+    writer = csv.writer(f)
+    writer.writerow(['pinyin', 'english'])  # Header
+    writer.writerows(flashcards)
+
+print("✅ Successfully created pinyin_words.csv")
+print(f"📝 Added {len(flashcards)} flashcards")
