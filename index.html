@@ -37,11 +37,11 @@
             font-size: 2em;
         }
 
-        .setup-screen, .learning-screen {
+        .user-screen, .setup-screen, .learning-screen {
             display: none;
         }
 
-        .setup-screen.active, .learning-screen.active {
+        .user-screen.active, .setup-screen.active, .learning-screen.active {
             display: block;
         }
 
@@ -62,6 +62,108 @@
         .info-box p {
             font-size: 1.1em;
             line-height: 1.6;
+        }
+
+        .user-input-group {
+            margin-bottom: 25px;
+        }
+
+        .user-input-group label {
+            display: block;
+            margin-bottom: 10px;
+            color: #667eea;
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+
+        .user-input-group input {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #667eea;
+            border-radius: 10px;
+            font-size: 1.1em;
+            transition: all 0.3s ease;
+        }
+
+        .user-input-group input:focus {
+            outline: none;
+            border-color: #764ba2;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .saved-users {
+            margin-bottom: 25px;
+        }
+
+        .saved-users h3 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 1.2em;
+        }
+
+        .user-list {
+            display: grid;
+            gap: 10px;
+        }
+
+        .user-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            background: #f0f4ff;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .user-item:hover {
+            background: #e0e8ff;
+            border-color: #667eea;
+        }
+
+        .user-info {
+            flex: 1;
+        }
+
+        .user-name {
+            font-weight: bold;
+            color: #667eea;
+            font-size: 1.1em;
+        }
+
+        .user-progress {
+            font-size: 0.9em;
+            color: #666;
+            margin-top: 5px;
+        }
+
+        .delete-user {
+            background: #ff6b6b;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.9em;
+            transition: all 0.3s ease;
+        }
+
+        .delete-user:hover {
+            background: #ff5252;
+        }
+
+        .current-user-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #667eea;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: bold;
         }
 
         .mode-selection {
@@ -249,7 +351,7 @@
             line-height: 1.8;
         }
 
-        .reset-btn {
+        .reset-btn, .change-user-btn {
             width: 100%;
             padding: 12px;
             background: #666;
@@ -262,8 +364,15 @@
             transition: all 0.3s ease;
         }
 
-        .reset-btn:hover {
+        .reset-btn:hover, .change-user-btn:hover {
             background: #444;
+        }
+
+        .button-group {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 15px;
         }
 
         @media (max-width: 600px) {
@@ -294,15 +403,51 @@
     <div class="container">
         <h1>🎴 中文学习卡片</h1>
 
-        <!-- Setup Screen -->
-        <div class="setup-screen active" id="setupScreen">
+        <!-- User Selection Screen -->
+        <div class="user-screen active" id="userScreen">
             <div class="info-box">
                 <h2>欢迎！Welcome!</h2>
                 <p>
+                    选择或创建你的学习账号<br>
+                    Select or create your learning profile
+                </p>
+            </div>
+
+            <div class="user-input-group">
+                <label for="usernameInput">
+                    👤 输入你的名字 Enter Your Name
+                </label>
+                <input
+                    type="text"
+                    id="usernameInput"
+                    placeholder="例如: 小明 / e.g., John"
+                    maxlength="20"
+                />
+            </div>
+
+            <button class="start-btn" onclick="selectOrCreateUser()">
+                开始学习 Start Learning
+            </button>
+
+            <div class="saved-users" id="savedUsersSection" style="display: none;">
+                <h3>📚 已保存的用户 Saved Users</h3>
+                <div class="user-list" id="userList"></div>
+            </div>
+        </div>
+
+        <!-- Setup Screen -->
+        <div class="setup-screen" id="setupScreen">
+            <div class="current-user-badge" id="currentUserBadge"></div>
+
+            <div class="info-box">
+                <h2>选择学习模式 Choose Mode</h2>
+                <p id="resumeMessage" style="display: none; color: #51cf66; font-weight: bold; margin-bottom: 10px;">
+                    ✅ 找到你的学习进度！<br>
+                    Found your progress!
+                </p>
+                <p>
                     准备学习 <strong>464</strong> 个中文词汇<br>
-                    Ready to learn <strong>464</strong> Chinese words<br><br>
-                    请选择学习模式<br>
-                    Please choose your learning mode
+                    Ready to learn <strong>464</strong> Chinese words
                 </p>
             </div>
 
@@ -318,12 +463,18 @@
             </div>
 
             <button class="start-btn" id="startBtn" disabled onclick="startLearning()">
-                开始学习 Start Learning
+                <span id="startBtnText">开始学习 Start Learning</span>
+            </button>
+
+            <button class="change-user-btn" onclick="changeUser()">
+                🔄 切换用户 Change User
             </button>
         </div>
 
         <!-- Learning Screen -->
         <div class="learning-screen" id="learningScreen">
+            <div class="current-user-badge" id="learningUserBadge"></div>
+
             <div class="progress" id="progress"></div>
 
             <div class="flashcard" id="flashcard" onclick="flipCard()">
@@ -358,9 +509,14 @@
                 </div>
             </div>
 
-            <button class="reset-btn" onclick="resetApp()">
-                🔄 重新开始 Reset
-            </button>
+            <div class="button-group">
+                <button class="reset-btn" onclick="resetProgress()">
+                    🔄 重置进度 Reset
+                </button>
+                <button class="change-user-btn" onclick="changeUser()">
+                    👤 切换用户 Change
+                </button>
+            </div>
         </div>
     </div>
 
@@ -374,15 +530,170 @@
         let learnedWords = [];
         let currentCard = null;
         let isFlipped = false;
-        let learningMode = null; // 'engToChn' or 'chnToEng'
+        let learningMode = null;
+        let currentUser = null;
 
-        // Initialize with embedded data
+        // Initialize vocabulary data
         words = VOCABULARY_DATA.map((word, index) => ({
             ...word,
-            id: index,
-            repeatCount: 0,
-            lastSeen: null
+            id: index
         }));
+
+        // ========== LOCAL STORAGE FUNCTIONS ==========
+
+        function getAllUsers() {
+            const usersData = localStorage.getItem('flashcard_users');
+            return usersData ? JSON.parse(usersData) : {};
+        }
+
+        function saveUserProgress(username, progressData) {
+            const users = getAllUsers();
+            users[username] = {
+                ...progressData,
+                lastAccess: new Date().toISOString()
+            };
+            localStorage.setItem('flashcard_users', JSON.stringify(users));
+        }
+
+        function loadUserProgress(username) {
+            const users = getAllUsers();
+            return users[username] || null;
+        }
+
+        function deleteUser(username) {
+            const users = getAllUsers();
+            delete users[username];
+            localStorage.setItem('flashcard_users', JSON.stringify(users));
+        }
+
+        function saveCurrentProgress() {
+            if (!currentUser) return;
+
+            const progressData = {
+                learningMode: learningMode,
+                learnedWordIds: learnedWords.map(w => w.id),
+                queueWordIds: learningQueue.map(w => w.id),
+                totalWords: words.length
+            };
+
+            saveUserProgress(currentUser, progressData);
+        }
+
+        // ========== USER MANAGEMENT ==========
+
+        function loadSavedUsers() {
+            const users = getAllUsers();
+            const userList = document.getElementById('userList');
+            const savedUsersSection = document.getElementById('savedUsersSection');
+
+            if (Object.keys(users).length === 0) {
+                savedUsersSection.style.display = 'none';
+                return;
+            }
+
+            savedUsersSection.style.display = 'block';
+            userList.innerHTML = '';
+
+            Object.entries(users).forEach(([username, data]) => {
+                const userItem = document.createElement('div');
+                userItem.className = 'user-item';
+
+                const learned = data.learnedWordIds ? data.learnedWordIds.length : 0;
+                const total = data.totalWords || 464;
+                const percentage = Math.round((learned / total) * 100);
+
+                userItem.innerHTML = `
+                    <div class="user-info" onclick="selectUser('${username}')">
+                        <div class="user-name">👤 ${username}</div>
+                        <div class="user-progress">已学习 ${learned}/${total} (${percentage}%)</div>
+                    </div>
+                    <button class="delete-user" onclick="event.stopPropagation(); confirmDeleteUser('${username}')">删除</button>
+                `;
+
+                userList.appendChild(userItem);
+            });
+        }
+
+        function selectOrCreateUser() {
+            const usernameInput = document.getElementById('usernameInput');
+            const username = usernameInput.value.trim();
+
+            if (!username) {
+                alert('请输入你的名字！\nPlease enter your name!');
+                return;
+            }
+
+            selectUser(username);
+        }
+
+        function selectUser(username) {
+            currentUser = username;
+            const progress = loadUserProgress(username);
+
+            // Update user badges
+            document.getElementById('currentUserBadge').textContent = `👤 ${username}`;
+            document.getElementById('learningUserBadge').textContent = `👤 ${username}`;
+
+            // Switch to setup screen
+            document.getElementById('userScreen').classList.remove('active');
+            document.getElementById('setupScreen').classList.add('active');
+
+            // Load progress if exists
+            if (progress && progress.learnedWordIds && progress.learnedWordIds.length > 0) {
+                document.getElementById('resumeMessage').style.display = 'block';
+                document.getElementById('startBtnText').innerHTML = '继续学习 Continue Learning';
+
+                // Pre-select mode if saved
+                if (progress.learningMode) {
+                    selectMode(progress.learningMode);
+                }
+            } else {
+                document.getElementById('resumeMessage').style.display = 'none';
+                document.getElementById('startBtnText').innerHTML = '开始学习 Start Learning';
+            }
+        }
+
+        function confirmDeleteUser(username) {
+            if (confirm(`确定要删除用户 "${username}" 吗？所有学习进度将被清除。\nAre you sure you want to delete user "${username}"? All progress will be lost.`)) {
+                deleteUser(username);
+                loadSavedUsers();
+
+                if (currentUser === username) {
+                    changeUser();
+                }
+            }
+        }
+
+        function changeUser() {
+            // Save current progress before switching
+            saveCurrentProgress();
+
+            // Reset state
+            currentUser = null;
+            learningMode = null;
+            learningQueue = [];
+            learnedWords = [];
+            currentCard = null;
+            isFlipped = false;
+
+            // Return to user screen
+            document.getElementById('userScreen').classList.add('active');
+            document.getElementById('setupScreen').classList.remove('active');
+            document.getElementById('learningScreen').classList.remove('active');
+
+            // Clear input
+            document.getElementById('usernameInput').value = '';
+
+            // Reload user list
+            loadSavedUsers();
+
+            // Reset mode selection
+            document.getElementById('engToChnBtn').classList.remove('selected');
+            document.getElementById('chnToEngBtn').classList.remove('selected');
+            document.getElementById('startBtn').disabled = true;
+        }
+
+        // ========== LEARNING FUNCTIONS ==========
 
         function selectMode(mode) {
             learningMode = mode;
@@ -393,21 +704,33 @@
         }
 
         function startLearning() {
-            // Initialize learning queue with all words
-            learningQueue = [...words].map(word => ({ ...word }));
-            learnedWords = [];
+            const progress = loadUserProgress(currentUser);
 
-            // Shuffle the queue
-            shuffleArray(learningQueue);
+            if (progress && progress.learnedWordIds && progress.learnedWordIds.length > 0) {
+                // Resume from saved progress
+                const learnedIds = new Set(progress.learnedWordIds);
+                const queueIds = new Set(progress.queueWordIds || []);
+
+                learnedWords = words.filter(w => learnedIds.has(w.id));
+
+                if (queueIds.size > 0) {
+                    learningQueue = words.filter(w => queueIds.has(w.id));
+                } else {
+                    learningQueue = words.filter(w => !learnedIds.has(w.id));
+                    shuffleArray(learningQueue);
+                }
+            } else {
+                // Start fresh
+                learningQueue = [...words];
+                learnedWords = [];
+                shuffleArray(learningQueue);
+            }
 
             // Switch to learning screen
             document.getElementById('setupScreen').classList.remove('active');
             document.getElementById('learningScreen').classList.add('active');
 
-            // Update stats
             updateStats();
-
-            // Show first card
             nextCard();
         }
 
@@ -424,11 +747,9 @@
                 return;
             }
 
-            // Get next card
             currentCard = learningQueue[0];
             isFlipped = false;
 
-            // Display question and answer based on mode
             const questionEl = document.getElementById('question');
             const answerEl = document.getElementById('answer');
 
@@ -440,17 +761,14 @@
                 answerEl.textContent = currentCard.english;
             }
 
-            // Hide answer
             answerEl.classList.remove('show');
             document.getElementById('flipHint').style.display = 'block';
 
-            // Update progress
             updateProgress();
         }
 
         function flipCard() {
             if (isFlipped) return;
-
             isFlipped = true;
             document.getElementById('answer').classList.add('show');
             document.getElementById('flipHint').style.display = 'none';
@@ -465,14 +783,15 @@
             const card = learningQueue.shift();
 
             if (result === 'again') {
-                // Add back to queue (with some delay - insert after 3 cards)
-                card.repeatCount++;
+                card.repeatCount = (card.repeatCount || 0) + 1;
                 const insertPosition = Math.min(3, learningQueue.length);
                 learningQueue.splice(insertPosition, 0, card);
             } else {
-                // Mark as learned
                 learnedWords.push(card);
             }
+
+            // Auto-save progress
+            saveCurrentProgress();
 
             updateStats();
             nextCard();
@@ -508,10 +827,22 @@
                 </div>
             `;
             flashcard.onclick = null;
+
+            // Save completion
+            saveCurrentProgress();
         }
 
-        function resetApp() {
-            if (confirm('确定要重新开始吗？所有进度将被清除。\nAre you sure you want to reset? All progress will be lost.')) {
+        function resetProgress() {
+            if (confirm('确定要重置你的学习进度吗？所有已学词汇将被清除。\nAre you sure you want to reset your progress? All learned words will be cleared.')) {
+                // Clear progress for current user
+                saveUserProgress(currentUser, {
+                    learningMode: null,
+                    learnedWordIds: [],
+                    queueWordIds: [],
+                    totalWords: words.length
+                });
+
+                // Restart
                 learningQueue = [];
                 learnedWords = [];
                 currentCard = null;
@@ -523,6 +854,7 @@
                 document.getElementById('engToChnBtn').classList.remove('selected');
                 document.getElementById('chnToEngBtn').classList.remove('selected');
                 document.getElementById('startBtn').disabled = true;
+                document.getElementById('resumeMessage').style.display = 'none';
 
                 // Restore flashcard structure
                 const flashcard = document.getElementById('flashcard');
@@ -551,6 +883,23 @@
                     markCard('good');
                 }
             }
+        });
+
+        // Allow Enter key to start learning
+        document.getElementById('usernameInput').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                selectOrCreateUser();
+            }
+        });
+
+        // Initialize on load
+        window.addEventListener('load', () => {
+            loadSavedUsers();
+        });
+
+        // Auto-save on page unload
+        window.addEventListener('beforeunload', () => {
+            saveCurrentProgress();
         });
     </script>
 </body>

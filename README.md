@@ -14,17 +14,22 @@ A powerful web-based Chinese flashcard application to help you learn Chinese voc
 - 📚 **464个词汇** - 内置完整词汇库 / 464 words built-in vocabulary
 - 🎨 **美观界面** - 现代化设计，学习更愉快 / Beautiful interface - modern design for enjoyable learning
 - ⚡ **即时使用** - 无需上传文件，打开即用 / Instant use - no file upload needed, ready to go
+- 💾 **自动保存** - 学习进度自动保存，随时继续 / Auto-save - progress saved automatically, resume anytime
+- 👥 **多用户支持** - 支持多个用户独立学习 / Multi-user support - separate progress for each user
 
 ## 🚀 快速开始 Quick Start
 
 ### 在线使用 Online Usage
 
 1. 访问 / Visit: https://ramjaljah.github.io/Ramin-FlashCard/
-2. 选择学习模式 (英文→拼音 或 拼音→英文) / Choose learning mode (English→Pinyin or Pinyin→English)
-3. 开始学习！/ Start learning!
+2. 输入你的名字创建账号 / Enter your name to create a profile
+3. 选择学习模式 (英文→拼音 或 拼音→英文) / Choose learning mode (English→Pinyin or Pinyin→English)
+4. 开始学习！/ Start learning!
 
-**注意：** 所有464个词汇已内置在应用中，无需上传文件！
-**Note:** All 464 words are built into the app, no file upload needed!
+**注意：**
+- 所有464个词汇已内置在应用中，无需上传文件！/ All 464 words are built into the app, no file upload needed!
+- 你的学习进度会自动保存到浏览器中 / Your progress is automatically saved in your browser
+- 下次访问时输入相同名字即可继续学习 / Enter the same name next time to resume learning
 
 ### 本地使用 Local Usage
 
@@ -57,9 +62,10 @@ All vocabulary is built into the app, no additional downloads needed!
 
 ## 🎮 使用方法 How to Use
 
-### 1. 上传文件 Upload File
-- 点击上传区域选择文件 / Click upload area to select file
-- 或拖放文件到上传区域 / Or drag and drop file to upload area
+### 1. 创建或选择用户 Create or Select User
+- 输入你的名字创建新账号 / Enter your name to create a new profile
+- 或选择已保存的用户继续学习 / Or select a saved user to resume learning
+- 可以删除不需要的用户 / Can delete users you no longer need
 
 ### 2. 选择模式 Choose Mode
 - **英文 ➡️ 中文** / **English ➡️ Pinyin**: 显示英文，猜拼音 / Show English, guess Pinyin
@@ -69,11 +75,13 @@ All vocabulary is built into the app, no additional downloads needed!
 - 点击卡片翻转查看答案 / Click card to flip and see answer
 - 选择 "再来一次" 如果不记得 / Choose "Again" if you don't remember
 - 选择 "记住了" 如果已掌握 / Choose "Got it!" if you've mastered it
+- 进度自动保存，可随时离开 / Progress auto-saves, you can leave anytime
 
 ### 4. 键盘快捷键 Keyboard Shortcuts
 - `空格键 Space` - 翻转卡片 / Flip card
 - `左箭头 ← 或 1` - 再来一次 / Again
 - `右箭头 → 或 2` - 记住了 / Got it!
+- `Enter` - 快速登录 / Quick login
 
 ## 🎯 学习算法 Learning Algorithm
 
@@ -84,14 +92,15 @@ All vocabulary is built into the app, no additional downloads needed!
 ## 🛠️ 技术栈 Tech Stack
 
 - **纯HTML/CSS/JavaScript** - 无需安装，直接使用 / Pure HTML/CSS/JavaScript - no installation needed
-- **SheetJS (xlsx.js)** - Excel文件解析 / Excel file parsing
+- **localStorage API** - 本地存储学习进度 / Local storage for learning progress
 - **响应式设计** - 适配所有设备 / Responsive design - works on all devices
+- **多用户系统** - 支持多个独立用户 / Multi-user system support
 
 ## 📱 兼容性 Compatibility
 
 - ✅ Chrome, Firefox, Safari, Edge (最新版本 latest versions)
 - ✅ iOS Safari, Chrome Mobile
-- ✅ 支持 .xlsx 和 .xls 文件格式 / Supports .xlsx and .xls file formats
+- ✅ 需要支持 localStorage 的浏览器 / Requires browser with localStorage support
 
 ## 🤝 贡献 Contributing
 
