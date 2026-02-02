@@ -11,44 +11,49 @@ A powerful web-based Chinese flashcard application to help you learn Chinese voc
 - 🎯 **智能重复** - 不记得的单词会再次出现 / Smart repetition - words you don't know will appear again
 - 📊 **学习统计** - 实时追踪学习进度 / Learning statistics - track your progress in real-time
 - ⌨️ **键盘快捷键** - 快速操作 / Keyboard shortcuts for fast operation
-- 💾 **本地处理** - 所有数据在浏览器中处理，保护隐私 / Local processing - all data processed in browser, privacy protected
+- 📚 **464个词汇** - 内置完整词汇库 / 464 words built-in vocabulary
 - 🎨 **美观界面** - 现代化设计，学习更愉快 / Beautiful interface - modern design for enjoyable learning
+- ⚡ **即时使用** - 无需上传文件，打开即用 / Instant use - no file upload needed, ready to go
 
 ## 🚀 快速开始 Quick Start
 
 ### 在线使用 Online Usage
 
-1. 访问 / Visit: [GitHub Pages链接]
-2. 上传你的 `Chinese.xlsx` 文件 / Upload your `Chinese.xlsx` file
-3. 选择学习模式 / Choose learning mode
-4. 开始学习！/ Start learning!
+1. 访问 / Visit: https://ramjaljah.github.io/Ramin-FlashCard/
+2. 选择学习模式 (英文→拼音 或 拼音→英文) / Choose learning mode (English→Pinyin or Pinyin→English)
+3. 开始学习！/ Start learning!
+
+**注意：** 所有464个词汇已内置在应用中，无需上传文件！
+**Note:** All 464 words are built into the app, no file upload needed!
 
 ### 本地使用 Local Usage
 
 1. 下载或克隆此仓库 / Download or clone this repository:
    ```bash
-   git clone https://github.com/yourusername/chinese-flashcard-app.git
+   git clone https://github.com/RamJalJah/Ramin-FlashCard.git
    ```
 
 2. 在浏览器中打开 `index.html` 文件 / Open `index.html` in your browser
 
-3. 上传你的 `Chinese.xlsx` 文件 / Upload your `Chinese.xlsx` file
+3. 选择学习模式开始学习！/ Choose learning mode and start learning!
 
-## 📝 Excel 文件格式 Excel File Format
+## 📝 词汇来源 Vocabulary Source
 
-你的 `Chinese.xlsx` 文件应该有以下格式：
+本应用包含 **464个** 精心挑选的中文词汇，涵盖：
 
-Your `Chinese.xlsx` file should have the following format:
+This app contains **464** carefully selected Chinese vocabulary words, covering:
 
-| Column A (拼音 Pinyin) | Column B (英文 English) |
-|------------------------|-------------------------|
-| nǐ hǎo | hello |
-| xiè xie | thank you |
-| zài jiàn | goodbye |
+- 基础问候语 / Basic greetings
+- 数字和日期 / Numbers and dates
+- 食物和饮料 / Food and drinks
+- 家庭成员 / Family members
+- 日常活动 / Daily activities
+- 天气和环境 / Weather and environment
+- 形容词和描述 / Adjectives and descriptions
 
-- **第一列** / **Column 1**: 拼音 (Pinyin)
-- **第二列** / **Column 2**: 英文翻译 (English translation)
-- 第一行可以是标题行，会自动跳过 / First row can be headers, will be auto-skipped
+所有词汇已内置在应用中，无需额外下载！
+
+All vocabulary is built into the app, no additional downloads needed!
 
 ## 🎮 使用方法 How to Use
 
